@@ -91,7 +91,7 @@ cd "${ANDROID_DIR}"
 # Copy the built apk.
 APK_DIR="${ANDROID_DIR}/app/build/outputs/apk/"
 if [[ "${BUILD_MODE}" == "debug" ]]; then
-	cp -a "${APK_DIR}/debug/app-debug.apk" "${BUILD_DIR}/rpn.apk"
+	cp -a "${APK_DIR}/debug/app-debug.apk" "${BUILD_DIR}/Sim.apk"
 else
-	cp -a "${APK_DIR}/release/app-release-unsigned.apk" "${BUILD_DIR}/rpn.apk"
+	cp -a "${APK_DIR}/release/app-release-unsigned.apk" "${BUILD_DIR}/Sim.apk"
 fi

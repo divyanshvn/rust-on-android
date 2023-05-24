@@ -1,5 +1,5 @@
 <resources>
-	<string name="app_name">RPN</string>
+	<string name="app_name">Sim</string>
 	<string name="calculate">Calculate</string>
 	<string name="result_here">The result will appear here.</string>
 	<string name="type_here">Expression...</string>

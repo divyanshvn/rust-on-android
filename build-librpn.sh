@@ -3,11 +3,11 @@ set -eu -o pipefail
 
 # -- Check the environment variables.
 if [[ -z "${ANDROID_NDK_ROOT+isset}" ]]; then
-	echo 'build-librpn.sh: The $ANDROID_NDK_ROOT environment variable is unset - unable to proceed' >&2
+	echo 'build-libSim.sh: The $ANDROID_NDK_ROOT environment variable is unset - unable to proceed' >&2
 	exit 10
 fi
 if [[ -z "${ANDROID_API+isset}" ]]; then
-	echo 'buld-librpn.sh: The $ANDROID_API environment variable is unset - unable to proceed' >&2
+	echo 'buld-libSim.sh: The $ANDROID_API environment variable is unset - unable to proceed' >&2
 	exit 11
 fi
 
@@ -24,18 +24,18 @@ while [[ "$#" -gt 0 ]]; do
 		shift 2
 
 		if [[ "${ARCH}" != "aarch64" ]] && [[ "${ARCH}" != "armv7" ]] && [[ "${ARCH}" != "x86_64" ]]; then
-			echo "build-librpn.sh: Unrecognized --arch '${ARCH}' (must be one of 'aarch64', 'armv7', 'x86_64')" >&2
+			echo "build-libSim.sh: Unrecognized --arch '${ARCH}' (must be one of 'aarch64', 'armv7', 'x86_64')" >&2
 			exit 1
 		fi
 	elif [[ "$1" == "--build-dir" ]]; then
-		BUILD_DIR="$(pwd)/$2/librpn"
+		BUILD_DIR="$(pwd)/$2/libSim"
 		shift 2
 	elif [[ "$1" == "--build-mode" ]]; then
 		BUILD_MODE="$2"
 		shift 2
 
 		if [[ "${BUILD_MODE}" != "debug" ]] && [[ "${BUILD_MODE}" != "release" ]]; then
-			echo "build-librpn.sh: Unrecognized --build-mode '${BUILD_MODE}' (must be either 'debug' or 'release')" >&2
+			echo "build-libSim.sh: Unrecognized --build-mode '${BUILD_MODE}' (must be either 'debug' or 'release')" >&2
 			exit 1
 		fi
 	elif [[ "$1" == "--build-mode" ]]; then
@@ -48,24 +48,24 @@ while [[ "$#" -gt 0 ]]; do
 		LIBS_DIR="$(pwd)/$2"
 		shift 2
 	else
-		echo "build-librpn.sh: Unrecognized argument '$1'" >&2
+		echo "build-libSim.sh: Unrecognized argument '$1'" >&2
 		exit 1
 	fi
 done
 
 if [[ -z "${ARCH}" ]]; then
-	echo "build-librpn.sh: You must specify the --arch" >&2
+	echo "build-libSim.sh: You must specify the --arch" >&2
 	exit 1
 fi
 
 if [[ -z "${BUILD_DIR}" ]]; then
-	echo "build-librpn.sh: You must specify the --build-dir" >&2
+	echo "build-libSim.sh: You must specify the --build-dir" >&2
 	exit 1
 fi
 mkdir -p "${BUILD_DIR}"
 
 if [[ -z "${BUILD_MODE}" ]]; then
-	echo "build-librpn.sh: You must specify the --build-mode" >&2
+	echo "build-libSim.sh: You must specify the --build-mode" >&2
 	exit 1
 fi
 if [[ "${BUILD_MODE}" == "release" ]]; then
@@ -73,7 +73,7 @@ if [[ "${BUILD_MODE}" == "release" ]]; then
 fi
 
 if [[ -z "${LIBS_DIR}" ]]; then
-	echo "build-librpn.sh: You must specify the --libs-dir" >&2
+	echo "build-libSim.sh: You must specify the --libs-dir" >&2
 	exit 1
 fi
 LIBS_DIR="${LIBS_DIR}/${BUILD_MODE}/${ARCH}"
@@ -119,4 +119,4 @@ env \
 		--target="${RUST_TARGET}" \
 		--target-dir="${BUILD_DIR}"
 
-cp -a "${TARGET_DIR}/librpn.so" "${LIBS_DIR}/librpn.so"
+cp -a "${TARGET_DIR}/libSim.so" "${LIBS_DIR}/libSim.so"

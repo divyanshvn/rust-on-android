@@ -9,14 +9,14 @@ use gmp::mpz::Mpz;
 use thiserror::Error as DeriveError;
 
 #[derive(DeriveError, Debug)]
-pub enum RpnError {
+pub enum SimError {
 	FailedToParseNumber,
 	NotEnoughOperands,
 	NotEnoughOperators,
 	Unknown,
 }
 
-impl Display for RpnError {
+impl Display for SimError {
 	fn fmt(&self, f: &mut Formatter) -> Result<(), FmtError> {
 		write!(f, "{:?}", self)
 	}
@@ -53,14 +53,14 @@ impl Display for BigNum {
 	}
 }
 
-pub fn rpn(text: &str) -> Result<BigNum, RpnError> {
+pub fn Sim(text: &str) -> Result<BigNum, SimError> {
 	let mut values: Vec<Mpz> = vec![];
 
 	for part in text.split_ascii_whitespace() {
 		match part {
 			"+" | "-" | "*" | "/" | "%" => {
 				if values.len() < 2 {
-					return Err(RpnError::NotEnoughOperands);
+					return Err(SimError::NotEnoughOperands);
 				}
 				let b = values.pop().unwrap();
 				let a = values.pop().unwrap();
@@ -71,20 +71,20 @@ pub fn rpn(text: &str) -> Result<BigNum, RpnError> {
 					"*" => a * b,
 					"/" => a / b,
 					"%" => a % b,
-					_ => return Err(RpnError::Unknown),
+					_ => return Err(SimError::Unknown),
 				};
 				values.push(new);
 			}
 			_ => match Mpz::from_str_radix(part, 10) {
 				Ok(v) => values.push(v),
-				Err(_) => return Err(RpnError::FailedToParseNumber),
+				Err(_) => return Err(SimError::FailedToParseNumber),
 			},
 		}
 	}
 
 	match values.len() {
-		0 => Err(RpnError::NotEnoughOperands),
+		0 => Err(SimError::NotEnoughOperands),
 		1 => Ok(BigNum::new(values.pop().unwrap())),
-		_ => Err(RpnError::NotEnoughOperators),
+		_ => Err(SimError::NotEnoughOperators),
 	}
 }

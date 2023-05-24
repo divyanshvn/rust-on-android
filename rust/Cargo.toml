@@ -5,11 +5,11 @@ authors = ["suve <veg@svgames.pl>"]
 edition = "2018"
 
 [[bin]]
-name = "rpn"
+name = "Sim"
 path = "src/main.rs"
 
 [lib]
-name = "rpn"
+name = "Sim"
 path = "src/lib.rs"
 crate-type = ["cdylib", "lib"]
 

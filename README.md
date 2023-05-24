@@ -118,13 +118,13 @@ Options:
                        should be copied over to.
 ```
 
-### build-librpn.sh
+### build-libSim.sh
 
 This script can be used to build only the Rust code.
 Note that you **must** build GMP first, and that GMP's `.so`
 files must be present inside `LIBS_DIR`; otherwise, linking will fail.
 ```
-build-librpn.sh --arch ARCH --build-dir BUILD_DIR --build-mode MODE
+build-libSim.sh --arch ARCH --build-dir BUILD_DIR --build-mode MODE
                 --libs-dir LIBS_DIR [--clean]
 
 Options:
@@ -175,7 +175,7 @@ the Rust code.
 
 Contains the Rust code. It is split into three parts:
 - `android.rs` - JNI glue code
-- `lib.rs` - the actual RPN implementation
+- `lib.rs` - the actual Sim implementation
 - `main.rs` - command-line program
 
 It is possible to build the app as a standalone executable,

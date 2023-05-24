@@ -1,4 +1,4 @@
-use crate::{rpn, BigNum};
+use crate::{Sim, BigNum};
 
 use std::fmt::Display;
 
@@ -64,19 +64,19 @@ where
 		.unwrap()
 }
 
-fn rpn_wrapper(env: &JNIEnv, expression: JString) -> Result<BigNum> {
+fn Sim_wrapper(env: &JNIEnv, expression: JString) -> Result<BigNum> {
 	let java_str = env.get_string(expression)?;
 	let rust_str = java_str.to_str()?;
-	Ok(rpn(rust_str)?)
+	Ok(Sim(rust_str)?)
 }
 
 #[no_mangle]
-pub extern "system" fn Java_pl_svgames_blog_RustOnAndroid_RpnCalculator_rpn<
+pub extern "system" fn Java_pl_svgames_blog_RustOnAndroid_SimCalculator_Sim<
 	'e,
 >(
 	env: JNIEnv<'e>,
 	_class: JClass,
 	expression: JString,
 ) -> JObject<'e> {
-	rust_result_to_java_result(&env, rpn_wrapper(&env, expression))
+	rust_result_to_java_result(&env, Sim_wrapper(&env, expression))
 }

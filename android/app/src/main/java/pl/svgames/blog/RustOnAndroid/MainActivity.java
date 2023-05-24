@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import pl.svgames.blog.RustOnAndroid.Result;
-import pl.svgames.blog.RustOnAndroid.RpnCalculator;
+import pl.svgames.blog.RustOnAndroid.SimCalculator;
 
 public class MainActivity extends AppCompatActivity {
 	private Button button;
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 		button.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				String expr = input.getText().toString();
-				Result result = RpnCalculator.rpn(expr);
+				Result result = SimCalculator.Sim(expr);
 				if(result.isOk()) {
 					resultBox.setTextColor(colourGreen);
 					resultBox.setText(result.getValue());

@@ -41,7 +41,7 @@ function build_arch() {
 	local ARCH="$1"
 	local FLAGS="--arch ${ARCH} --build-dir ./build --build-mode ${BUILD_MODE} ${CLEAN} --libs-dir ./build/libs"
 	"${SCRIPT_DIR}/build-libgmp.sh" ${FLAGS}
-	"${SCRIPT_DIR}/build-librpn.sh" ${FLAGS}
+	"${SCRIPT_DIR}/build-libSim.sh" ${FLAGS}
 }
 
 build_arch aarch64 "$@"
